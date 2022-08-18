@@ -1,0 +1,83 @@
+<style>
+body {
+  background-color: rgb(150, 150, 255);
+  text-align:center;
+  font-family:Arial;
+  font-size:1.5vmin;
+  padding:2.5vmin;
+}
+
+h1 {
+  font-size:5vmin;
+}
+
+input, button {
+  border-radius:10vmin;
+  padding:5vmin;
+  font-size:4vmin;
+  margin:3vmin;
+  border:solid;
+  background-color:white;
+  border-color:black;
+  text-align:center;
+}
+
+button {
+  font-size:2.5vmin;
+}
+
+button:hover {
+  opacity:0.5;
+}
+
+button:active {
+  font-size:3vmin;
+}
+</style>
+
+<h1 id="question"></h1>
+<input id="answer"></input>
+<br>
+<button onclick="check()">Check my answer</button>
+
+<script>
+window.addEventListener("keydown", (e) => {
+  if (e.key == "Enter") {
+    check()
+  }
+})
+
+const questions = ["In April 2015 a section of this website featured a 60-second countdown tied to a large blue button. Ellen Pao resigned in 2015 as CEO of this website, which calls itself the (*) ”front page of the internet.” “The Donald” is a controversial subsection of—for 10 points—what site that hosts AMA's", "In one series by this author, a homeless teen awakens in a 540-floor hotel after he dies in Boston while trying to retrieve a sword. The hero of this author's (*) Magnus Chase series is cousins with Annabeth, a daughter of Athena. For 10 points—who wrote the Camp Half-Blood Chronicles?", "This present-day country contains the site of the Babi Yar Massacre, where thousands of Jews were killed in 1941. The Orange Revolution ousted Viktor Yanukovych as president of this country. (*) Malaysia Airlines Flight 17 was shot down over—for 10 points—what country whose capital is Kiev?"]
+const answers = ["Reddit", "Riordan", "Ukraine"]
+
+var doneAlready = []
+function question() {
+  while (true) {
+  randQ = questions[Math.floor(Math.random()*questions.length)]
+    if (!doneAlready.includes(randQ)) {
+      doneAlready.push(randQ)
+      break;
+    }
+    if (doneAlready.length == questions.length) {
+      doneAlready = []
+      doneAlready.push(randQ)
+      break;
+    }
+  }
+  document.getElementById("question").innerText = randQ
+}
+
+function check() {
+  answer = answers[questions.indexOf(document.getElementById("question").innerText)]
+ if (document.getElementById("answer").value.toLowerCase().includes(answer.toLowerCase())) {
+   alert("Correct!")
+ } else {
+   alert(`Incorrect. The correct answer was ${answer}.`)
+ }
+  
+  document.getElementById("answer").value = ""
+  question()
+}
+
+question()
+</script>
